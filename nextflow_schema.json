@@ -35,7 +35,7 @@
                     "format": "file-path",
                     "pattern": "^\\S+\\.bed$",
                     "description": "Segmental duplication bed file.",
-                },
+                }
             }
         },
         "max_job_request_options": {
