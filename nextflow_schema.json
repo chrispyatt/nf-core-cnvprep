@@ -34,7 +34,7 @@
                     "type": "string",
                     "format": "file-path",
                     "pattern": "^\\S+\\.bed$",
-                    "description": "Segmental duplication bed file.",
+                    "description": "Segmental duplication bed file."
                 }
             }
         },
