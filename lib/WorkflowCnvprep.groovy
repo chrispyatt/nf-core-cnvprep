@@ -9,7 +9,7 @@ class WorkflowCnvprep {
     //
     // Check and validate parameters
     //
-    /*
+    
     public static void initialise(params, log) {
         genomeExistsError(params, log)
 
@@ -19,7 +19,7 @@ class WorkflowCnvprep {
             System.exit(1)
         }
     }
-    */
+    
 
     //
     // Get workflow summary for MultiQC

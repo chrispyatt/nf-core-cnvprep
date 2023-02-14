@@ -49,9 +49,9 @@ if (params.refGenome) { ref_genome = file(params.refGenome) } else { exit 1, 'In
 // MODULE: Installed directly from nf-core/modules
 //
 //include { MULTIQC                     } from '../modules/nf-core/multiqc/main'
-include { INDEXFEATUREFILE            } from '../modules/nf-core/gatk4/indexfeaturefile/main'
-include { PREPROCESSINTERVALS         } from '../modules/nf-core/gatk4/preprocessintervals/main'
-include { ANNOTATEINTERVALS           } from '../modules/nf-core/gatk4/annotateintervals/main'
+include { GATK4_INDEXFEATUREFILE            } from '../modules/nf-core/gatk4/indexfeaturefile/main'
+include { GATK4_PREPROCESSINTERVALS         } from '../modules/nf-core/gatk4/preprocessintervals/main'
+include { GATK4_ANNOTATEINTERVALS           } from '../modules/nf-core/gatk4/annotateintervals/main'
 
 
 
@@ -76,13 +76,13 @@ workflow CNVPREP {
     //
     // MODULE: Run PreprocessIntervals
     //
-    prepro_ints = PREPROCESSINTERVALS ( ref_genome, capture_bed )
+    prepro_ints = GATK4_PREPROCESSINTERVALS ( ref_genome, capture_bed )
 
 
     //
     // MODULE: Run AnnotateIntervals
     //
-    anno_ints = ANNOTATEINTERVALS ( ref_genome, prepro_ints )
+    anno_ints = GATK4_ANNOTATEINTERVALS ( ref_genome, prepro_ints )
 
     echo "GOT TO THE END FAM. GREAT SUCCESS."
 
