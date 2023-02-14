@@ -76,13 +76,13 @@ workflow CNVPREP {
     //
     // MODULE: Run PreprocessIntervals
     //
-    prepro_ints = PREPROCESSINTERVALS ( refGenome, bed )
+    prepro_ints = PREPROCESSINTERVALS ( ref_genome, capture_bed )
 
 
     //
     // MODULE: Run AnnotateIntervals
     //
-    anno_ints = ANNOTATEINTERVALS ( refGenome, prepro_ints )
+    anno_ints = ANNOTATEINTERVALS ( ref_genome, prepro_ints )
 
     echo "GOT TO THE END FAM. GREAT SUCCESS."
 
