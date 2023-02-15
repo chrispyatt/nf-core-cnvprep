@@ -80,7 +80,7 @@ workflow CNVPREP {
         tar -xzvf tarfile
         """
     }
-    UNPACK( refGenome )
+    UNPACK( ref_genome )
     //
 
 
