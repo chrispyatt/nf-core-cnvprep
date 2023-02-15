@@ -70,7 +70,15 @@ workflow CNVPREP {
 
     //
     // SUBWORKFLOW: any local workflow code
-    tar -xzvf ref_genome
+    process UNPACK {
+        input:
+        path tarfile 
+        output:
+        path 'genome.*', emit: files
+        script:
+        tar -xzvf tarfile
+    }
+    UNPACK
     //
 
 
