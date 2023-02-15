@@ -76,7 +76,9 @@ workflow CNVPREP {
         output:
         path 'genome.*', emit: files
         script:
+        """
         tar -xzvf tarfile
+        """
     }
     UNPACK( refGenome )
     //
