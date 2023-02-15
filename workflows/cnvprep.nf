@@ -70,13 +70,14 @@ workflow CNVPREP {
 
     //
     // SUBWORKFLOW: any local workflow code
+    tar -xzvf ref_genome
     //
 
 
     //
     // MODULE: Run PreprocessIntervals
     //
-    prepro_ints = GATK4_PREPROCESSINTERVALS ( ref_genome, capture_bed )
+    prepro_ints = GATK4_PREPROCESSINTERVALS ( fasta=genome.fa, dict=genome.dict, fai=genome.fa.fai, exclude_intervals=capture_bed )
 
 
     //
