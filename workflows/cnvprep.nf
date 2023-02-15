@@ -78,7 +78,7 @@ workflow CNVPREP {
         script:
         tar -xzvf tarfile
     }
-    UNPACK
+    UNPACK( refGenome )
     //
 
 
