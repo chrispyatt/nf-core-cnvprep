@@ -27,6 +27,7 @@ process GATK4_INDEXFEATUREFILE {
         avail_mem = task.memory.giga
     }
     """
+    echo $meta $feature_file
     gatk --java-options "-Xmx${avail_mem}g" IndexFeatureFile \\
         --input $feature_file \\
         --tmp-dir . \\
