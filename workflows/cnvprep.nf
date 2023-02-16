@@ -92,6 +92,12 @@ workflow CNVPREP {
     UNPACK( ref_genome )
     //
 
+    process TEST {
+        """
+        ls
+        """
+    }
+
 
     //
     // MODULE: Run PreprocessIntervals
