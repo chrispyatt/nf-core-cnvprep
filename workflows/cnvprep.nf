@@ -75,7 +75,7 @@ workflow CNVPREP {
 
     ch_versions = Channel.empty()
 
-    print ref_genome, capture_bed, map_bed, segdup_bed
+    print ref_genome, capture_bed, map_bed
 
     //
     // SUBWORKFLOW: any local workflow code
