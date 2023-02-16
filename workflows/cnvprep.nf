@@ -97,7 +97,7 @@ workflow CNVPREP {
         ls
         """
     }
-
+    TEST()
 
     //
     // MODULE: Run PreprocessIntervals
