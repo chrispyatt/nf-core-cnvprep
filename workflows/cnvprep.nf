@@ -118,7 +118,13 @@ workflow CNVPREP {
         mappable_regions=map_bed, mappable_regions_tbi='map_bed.tbi', segmental_duplication_regions=map_bed, segmental_duplication_regions_tbi='map_bed.tbi' 
         )
 
-    echo "GOT TO THE END FAM. GREAT SUCCESS."
+
+    process SUCCESS {
+        """
+        echo "GOT TO THE END FAM. GREAT SUCCESS."
+        """
+    }
+    SUCCESS()
 
     //
     // MODULE: MultiQC
