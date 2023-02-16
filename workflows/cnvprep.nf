@@ -15,12 +15,12 @@ def checkPathParamList = [ params.bed, params.refGenome, params.map, params.segd
 for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true) } }
 
 // Check mandatory parameters
-if (params.bed) { capture_bed = file(params.bed) } else { exit 1, 'Input capture bed not specified!' }
-if (params.refGenome) { ref_genome = file(params.refGenome) } else { exit 1, 'Input reference genome not specified!' }
+if (params.bed) { capture_bed = params.bed } else { exit 1, 'Input capture bed not specified!' }
+if (params.refGenome) { ref_genome = params.refGenome } else { exit 1, 'Input reference genome not specified!' }
 
 // Make optional parameters variables
-if (params.map) { map_bed = file(params.map) }
-if (params.segdup) { segdup_bed = file(params.segdup) }
+if (params.map) { map_bed = params.map }
+if (params.segdup) { segdup_bed = params.segdup }
 
 // Make Groovy map for tuples (may need to change later)
 meta_inp = [ id:'test', single_end:false ]
