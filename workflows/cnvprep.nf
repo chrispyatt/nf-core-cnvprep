@@ -115,7 +115,7 @@ workflow CNVPREP {
     //
     anno_ints = GATK4_ANNOTATEINTERVALS (
         fasta='genome.fa', dict='genome.dict', fai='genome.fa.fai', intervals=prepro_ints.interval_list,
-        mappable_regions=map_bed, mappable_regions_tbi='map_bed.tbi', segmental_duplication_regions=null, segmental_duplication_regions_tbi=null 
+        mappable_regions=map_bed, mappable_regions_tbi='map_bed.tbi', segmental_duplication_regions=map_bed, segmental_duplication_regions_tbi='map_bed.tbi' 
         )
 
     echo "GOT TO THE END FAM. GREAT SUCCESS."
