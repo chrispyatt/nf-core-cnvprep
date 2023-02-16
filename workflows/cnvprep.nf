@@ -22,6 +22,9 @@ if (params.refGenome) { ref_genome = file(params.refGenome) } else { exit 1, 'In
 if (params.map) { map_bed = file(params.map) }
 if (params.segdup) { segdup_bed = file(params.segdup) }
 
+// Make Groovy map for tuples (may need to change later)
+meta_inp = [ id:'test', single_end:false ]
+
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     CONFIG FILES
@@ -79,8 +82,6 @@ workflow CNVPREP {
     process UNPACK {
         input:
         path tarfile 
-        output:
-        path 'genome.*', emit: files
         script:
         """
         tar -xzvf tarfile
@@ -94,7 +95,7 @@ workflow CNVPREP {
     // MODULE: Run PreprocessIntervals
     //
     prepro_ints = GATK4_PREPROCESSINTERVALS (
-        fasta='genome.fa', dict='genome.dict', fai='genome.fa.fai', exclude_intervals=capture_bed
+        meta=meta_inp, fasta='genome.fa', dict='genome.dict', fai='genome.fa.fai', exclude_intervals=capture_bed
         )
 
 
@@ -102,7 +103,7 @@ workflow CNVPREP {
     // MODULE: Run IndexFeatureFile
     //
     GATK4_INDEXFEATUREFILE (
-        feature_file=map_bed
+        meta=meta_inp, feature_file=map_bed
     )
     /*
     GATK4_INDEXFEATUREFILE (
@@ -114,7 +115,7 @@ workflow CNVPREP {
     // MODULE: Run AnnotateIntervals
     //
     anno_ints = GATK4_ANNOTATEINTERVALS (
-        fasta='genome.fa', dict='genome.dict', fai='genome.fa.fai', intervals=prepro_ints.interval_list,
+        meta=meta_inp, fasta='genome.fa', dict='genome.dict', fai='genome.fa.fai', intervals=prepro_ints.interval_list,
         mappable_regions=map_bed, mappable_regions_tbi='map_bed.tbi', segmental_duplication_regions=map_bed, segmental_duplication_regions_tbi='map_bed.tbi' 
         )
 
