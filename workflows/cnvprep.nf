@@ -95,7 +95,10 @@ workflow CNVPREP {
     // MODULE: Run PreprocessIntervals
     //
     prepro_ints = GATK4_PREPROCESSINTERVALS (
-        meta=meta_inp, fasta='genome.fa', dict='genome.dict', fai='genome.fa.fai', exclude_intervals=capture_bed
+        (meta=meta_inp, exclude_intervals=capture_bed)
+        fasta='genome.fa'
+        dict='genome.dict'
+        fai='genome.fa.fai'
         )
 
 
@@ -103,7 +106,7 @@ workflow CNVPREP {
     // MODULE: Run IndexFeatureFile
     //
     GATK4_INDEXFEATUREFILE (
-        meta=meta_inp, feature_file=map_bed
+        (meta=meta_inp, feature_file=map_bed)
     )
     /*
     GATK4_INDEXFEATUREFILE (
