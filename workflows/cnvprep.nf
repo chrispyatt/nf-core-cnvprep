@@ -18,6 +18,10 @@ for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true
 if (params.bed) { capture_bed = file(params.bed) } else { exit 1, 'Input capture bed not specified!' }
 if (params.refGenome) { ref_genome = file(params.refGenome) } else { exit 1, 'Input reference genome not specified!' }
 
+// Make optional parameters variables
+if (params.map) { map_bed = file(params.map) }
+if (params.segdup) { segdup_bed = file(params.segdup) }
+
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     CONFIG FILES
@@ -70,6 +74,8 @@ workflow CNVPREP {
 
     //
     // SUBWORKFLOW: any local workflow code
+    
+    // this should probably be somewhere else (validate inputs section?)
     process UNPACK {
         input:
         path tarfile 
@@ -87,13 +93,30 @@ workflow CNVPREP {
     //
     // MODULE: Run PreprocessIntervals
     //
-    prepro_ints = GATK4_PREPROCESSINTERVALS ( fasta='genome.fa', dict='genome.dict', fai='genome.fa.fai', exclude_intervals=capture_bed )
+    prepro_ints = GATK4_PREPROCESSINTERVALS (
+        fasta='genome.fa', dict='genome.dict', fai='genome.fa.fai', exclude_intervals=capture_bed
+        )
 
+
+    //
+    // MODULE: Run IndexFeatureFile
+    //
+    GATK4_INDEXFEATUREFILE (
+        feature_file=map_bed
+    )
+    /*
+    GATK4_INDEXFEATUREFILE (
+        feature_file=params.segdup
+    )
+    */
 
     //
     // MODULE: Run AnnotateIntervals
     //
-    anno_ints = GATK4_ANNOTATEINTERVALS ( fasta='genome.fa', dict='genome.dict', fai='genome.fa.fai', intervals=prepro_ints )
+    anno_ints = GATK4_ANNOTATEINTERVALS (
+        fasta='genome.fa', dict='genome.dict', fai='genome.fa.fai', intervals=prepro_ints,
+        mappable_regions=map_bed, mappable_regions_tbi='map_bed.tbi', segmental_duplication_regions=null, segmental_duplication_regions_tbi=null 
+        )
 
     echo "GOT TO THE END FAM. GREAT SUCCESS."
 
