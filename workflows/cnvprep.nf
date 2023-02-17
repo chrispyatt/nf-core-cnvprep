@@ -125,8 +125,9 @@ workflow CNVPREP {
     //
     // MODULE: Run AnnotateIntervals
     //
+    /*
     anno_ints = GATK4_ANNOTATEINTERVALS (
-        [ prepro_ints.meta, prepro_ints.interval_list ],
+        [ meta_inp, prepro_ints.interval_list ],
         fasta='genome.fa',
         dict='genome.dict',
         fai='genome.fa.fai',
@@ -135,7 +136,7 @@ workflow CNVPREP {
         segmental_duplication_regions=map_bed,
         segmental_duplication_regions_tbi='map_bed.tbi' 
         )
-
+    */
 
     process SUCCESS {
         """
