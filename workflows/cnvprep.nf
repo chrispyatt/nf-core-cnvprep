@@ -25,6 +25,11 @@ if (params.segdup) { segdup_bed = params.segdup }
 // Make Groovy map for tuples (may need to change later)
 meta_inp = [ id:'test', single_end:false ]
 
+print INPUTS
+print( INPUTS )
+print ref_genome, capture_bed, map_bed
+print ( ref_genome, capture_bed, map_bed )
+
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     CONFIG FILES
@@ -74,8 +79,6 @@ include { GATK4_ANNOTATEINTERVALS           } from '../modules/nf-core/gatk4/ann
 workflow CNVPREP {
 
     ch_versions = Channel.empty()
-
-    print ref_genome, capture_bed, map_bed
 
     //
     // SUBWORKFLOW: any local workflow code
