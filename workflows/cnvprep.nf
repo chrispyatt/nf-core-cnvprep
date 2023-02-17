@@ -126,7 +126,7 @@ workflow CNVPREP {
     // MODULE: Run AnnotateIntervals
     //
     anno_ints = GATK4_ANNOTATEINTERVALS (
-        [ prepro_ints ],
+        [ prepro_ints.meta, prepro_ints.interval_list ],
         fasta='genome.fa',
         dict='genome.dict',
         fai='genome.fa.fai',
