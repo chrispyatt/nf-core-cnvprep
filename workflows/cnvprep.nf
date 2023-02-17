@@ -32,7 +32,7 @@ process GET_DX_INPUTS {
     dx download $ref_genome, $capture_bed, $map_bed
     """
 }
-GET_DX_INPUTS()
+
 
 //print ( ref_genome, capture_bed, map_bed )
 
@@ -85,6 +85,8 @@ include { GATK4_ANNOTATEINTERVALS           } from '../modules/nf-core/gatk4/ann
 workflow CNVPREP {
 
     ch_versions = Channel.empty()
+
+    GET_DX_INPUTS()
 
     //
     // SUBWORKFLOW: any local workflow code
