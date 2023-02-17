@@ -26,6 +26,14 @@ if (params.segdup) { segdup_bed = params.segdup }
 meta_inp = [ id:'test', single_end:false ]
 
 print "\nINPUTS = $ref_genome, $capture_bed, $map_bed\n"
+
+process GET_DX_INPUTS {
+    """
+    dx download $ref_genome, $capture_bed, $map_bed
+    """
+}
+GET_DX_INPUTS()
+
 //print ( ref_genome, capture_bed, map_bed )
 
 /*
