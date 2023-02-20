@@ -96,7 +96,7 @@ workflow CNVPREP {
     // this should probably be somewhere else (validate inputs section?)
     process UNPACK {
         """
-        tar -xzvf ref_genome
+        tar -xzvf $ref_genome
         """
     }
     UNPACK()
