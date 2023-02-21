@@ -26,9 +26,7 @@ if (params.segdup) { segdup_bed = file(params.segdup) }
 meta_inp = [ id:'test', single_end:false ]
 
 print "\nINPUTS = $ref_genome, $capture_bed, $map_bed\n"
-dx download ref_genome -o ref
-dx download capture_bed -o capture
-dx download map_bed -o map
+tar -xzvf ref_genome
 
 process GET_DX_INPUTS {
     """
