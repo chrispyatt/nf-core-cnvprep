@@ -30,6 +30,12 @@ print "\nINPUTS = $ref_genome, $capture_bed, $map_bed\n"
 process GET_DX_INPUTS {
     """
     echo "I AM GETTING INPUTS"
+    ref_genome_id = ref_genome.split(':')[1]
+    capture_bed_id = capture_bed.split(':')[1]
+    map_bed_id = map_bed.split(':')[1]
+    echo $ref_genome_id
+    echo $capture_bed_id
+    echo $map_bed
     #dx download $ref_genome, $capture_bed, $map_bed
     """
 }
@@ -150,14 +156,12 @@ workflow CNVPREP {
         )
     */
 
-    /*
     process SUCCESS {
         """
         echo "GOT TO THE END FAM. GREAT SUCCESS."
         """
     }
     SUCCESS()
-    */
 
     //
     // MODULE: MultiQC
