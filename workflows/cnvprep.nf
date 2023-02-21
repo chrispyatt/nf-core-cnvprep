@@ -151,12 +151,14 @@ workflow CNVPREP {
         )
     */
 
+    /*
     process SUCCESS {
         """
         echo "GOT TO THE END FAM. GREAT SUCCESS."
         """
     }
     SUCCESS()
+    */
 
     //
     // MODULE: MultiQC
