@@ -26,13 +26,14 @@ if (params.segdup) { segdup_bed = file(params.segdup) }
 meta_inp = [ id:'test', single_end:false ]
 
 print "\nINPUTS = $ref_genome, $capture_bed, $map_bed\n"
+ref_genome_id = ref_genome.split(':')[1]
+capture_bed_id = capture_bed.split(':')[1]
+map_bed_id = map_bed.split(':')[1]
+print "JUST IDs: $ref_genome_id, $capture_bed_id, $map_bed_id\n"
 
 process GET_DX_INPUTS {
     """
     echo "I AM GETTING INPUTS"
-    ref_genome_id = ref_genome.split(':')[1]
-    capture_bed_id = capture_bed.split(':')[1]
-    map_bed_id = map_bed.split(':')[1]
     echo ref_genome_id
     echo capture_bed_id
     echo map_bed
