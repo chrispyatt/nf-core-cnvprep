@@ -93,14 +93,14 @@ workflow CNVPREP {
     //
     // SUBWORKFLOW: any local workflow code
     
-    // this should probably be somewhere else (validate inputs section?)
+    /* this should probably be somewhere else (validate inputs section?)
     process UNPACK {
         """
         tar -xzvf $ref_genome
         """
     }
-    //UNPACK()
-    //
+    UNPACK()
+    */
 
     process TEST {
         """
