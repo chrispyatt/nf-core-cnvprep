@@ -104,6 +104,7 @@ workflow CNVPREP {
     process TEST {
         """
         echo "CHECKING DIRECTORY CONTENTS"
+        pwd
         ls .
         """
     }
