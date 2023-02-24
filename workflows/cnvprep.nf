@@ -91,14 +91,14 @@ workflow CNVPREP {
     ch_versions = Channel.empty()
 
     //ch_inputs = extract_csv(ref_genome)
-
+    /*
     ch_ref = ref_genome
         .branch { meta, samplesheet, run ->
             tar: run.toString().endsWith('.tar.gz')
             dir: true
         }
-    
-    UNTAR ( ch_ref.tar ).untar
+    */
+    UNTAR ( ref_genome ).untar
 
     GET_DX_INPUTS()
 
