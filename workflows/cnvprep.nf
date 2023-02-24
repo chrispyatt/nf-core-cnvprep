@@ -73,6 +73,7 @@ process GET_DX_INPUTS {
 include { GATK4_INDEXFEATUREFILE            } from '../modules/nf-core/gatk4/indexfeaturefile/main'
 include { GATK4_PREPROCESSINTERVALS         } from '../modules/nf-core/gatk4/preprocessintervals/main'
 include { GATK4_ANNOTATEINTERVALS           } from '../modules/nf-core/gatk4/annotateintervals/main'
+include { UNTAR                             } from '../modules/nf-core/untar/main'                                              
 
 
 
@@ -88,6 +89,16 @@ include { GATK4_ANNOTATEINTERVALS           } from '../modules/nf-core/gatk4/ann
 workflow CNVPREP {
 
     ch_versions = Channel.empty()
+
+    ch_inputs = extract_csv(ch_input)
+
+    ch_ref = ch_inputs
+        .branch { meta, samplesheet, run ->
+            tar: run.toString().endsWith('.tar.gz')
+            dir: true
+        }
+    
+    UNTAR ( ch_flowcells_tar.run_dirs ).untar
 
     GET_DX_INPUTS()
 
