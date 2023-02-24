@@ -30,6 +30,8 @@ print "\nINPUTS = $ref_genome, $capture_bed, $map_bed\n"
 process GET_DX_INPUTS {
     """
     echo "I AM GETTING INPUTS"
+    tar -xzvf ref_genome
+    tar -xzvf $ref_genome
     #dx download $ref_genome, $capture_bed, $map_bed
     """
 }
