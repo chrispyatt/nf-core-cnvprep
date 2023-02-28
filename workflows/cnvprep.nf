@@ -136,7 +136,7 @@ workflow CNVPREP {
 
 }
 
-print "\nREF_ARCHIVE: " ref_archive
+print "\nREF_ARCHIVE: $ref_archive"
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
