@@ -100,9 +100,9 @@ workflow CNVPREP {
     
     prepro_ints = GATK4_PREPROCESSINTERVALS (
         [ meta_inp, capture_bed ],
-        fasta=ref_archive/genome.fasta,
-        dict=ref_archive/genome.dict,
-        fai=ref_archive/genome.fa.fai
+        fasta=ref_archive.genome.fasta,
+        dict=ref_archive.genome.dict,
+        fai=ref_archive.genome.fa.fai
         )
     
 
@@ -111,7 +111,7 @@ workflow CNVPREP {
     //
     /*
     GATK4_INDEXFEATUREFILE (
-        [ meta_inp, feature_file=map_bed ]
+        [ meta_inp, map_bed ]
     )
     */
     /*
