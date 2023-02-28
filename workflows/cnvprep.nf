@@ -93,21 +93,19 @@ workflow CNVPREP {
     //
 
     ref_archive = UNTAR ( [ meta_inp, ref_genome ] ).untar
-    print "\nREF_ARCHIVE: "
-    print ref_archive
 
     //
     // MODULE: Run PreprocessIntervals
     //
-    /*
+    
     prepro_ints = GATK4_PREPROCESSINTERVALS (
         [ meta_inp, capture_bed ],
-        fasta=$ref_archive.fasta,
-        dict=$ref_archive.dict,
-        fai=$ref_archive.fai
+        fasta=$ref_archive/genome.fasta,
+        dict=$ref_archive/genome.dict,
+        fai=$ref_archive/genome.fa.fai
         )
-    */
-
+    
+    
     //
     // MODULE: Run IndexFeatureFile
     //
