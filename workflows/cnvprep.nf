@@ -27,14 +27,6 @@ meta_inp = [ id:'test', single_end:false ]
 
 print "\nINPUTS = $ref_genome, $capture_bed, $map_bed\n"
 
-process GET_DX_INPUTS {
-    """
-    echo "I AM GETTING INPUTS"
-    #tar -xzvf params.refGenome
-    #tar -xzvf $ref_genome
-    #dx download $ref_genome, $capture_bed, $map_bed
-    """
-}
 
 
 //print ( ref_genome, capture_bed, map_bed )
@@ -90,42 +82,18 @@ workflow CNVPREP {
 
     ch_versions = Channel.empty()
 
-    //ch_inputs = extract_csv(ref_genome)
-    /*
-    ch_ref = ref_genome
-        .branch { meta, samplesheet, run ->
-            tar: run.toString().endsWith('.tar.gz')
-            dir: true
-        }
-    */
-    UNTAR ( [ meta_inp, ref_genome ] ).untar
-
-    GET_DX_INPUTS()
 
     //
     // SUBWORKFLOW: any local workflow code
     
-    /* this should probably be somewhere else (validate inputs section?)
-    process UNPACK {
-        """
-        tar -xzvf $ref_genome
-        """
-    }
-    UNPACK()
-    */
 
-    process TEST {
-        """
-        echo "CHECKING DIRECTORY CONTENTS"
-        pwd
-        ls .
-        """
-    }
-    TEST()
 
     //
     // MODULE: Run PreprocessIntervals
     //
+
+    ref_archive = UNTAR ( [ meta_inp, ref_genome ] ).untar
+
     /*
     prepro_ints = GATK4_PREPROCESSINTERVALS (
         [ meta_inp, capture_bed ],
@@ -165,14 +133,10 @@ workflow CNVPREP {
         )
     */
 
-    process SUCCESS {
-        """
-        echo "GOT TO THE END FAM. GREAT SUCCESS."
-        """
-    }
-    SUCCESS()
 
 }
+
+print "\nREF_ARCHIVE: " ref_archive
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
