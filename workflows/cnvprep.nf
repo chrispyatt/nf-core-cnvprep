@@ -93,6 +93,8 @@ workflow CNVPREP {
     //
 
     ref_archive = UNTAR ( [ meta_inp, ref_genome ] ).untar
+    print "\nREF_ARCHIVE: $ref_archive"
+
 
     /*
     prepro_ints = GATK4_PREPROCESSINTERVALS (
@@ -136,7 +138,6 @@ workflow CNVPREP {
 
 }
 
-print "\nREF_ARCHIVE: $ref_archive"
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
