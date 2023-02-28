@@ -98,7 +98,7 @@ workflow CNVPREP {
             dir: true
         }
     */
-    UNTAR ( ref_genome ).untar
+    UNTAR ( [ meta_inp, ref_genome ] ).untar
 
     GET_DX_INPUTS()
 
