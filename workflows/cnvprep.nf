@@ -94,7 +94,7 @@ workflow CNVPREP {
 
     ref_archive = UNTAR ( [ meta_inp, ref_genome ] ).untar
     print "\nREF_ARCHIVE: "
-    print ref_archive.untar
+    print ref_archive
 
     //
     // MODULE: Run PreprocessIntervals
