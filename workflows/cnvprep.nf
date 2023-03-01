@@ -107,14 +107,10 @@ workflow CNVPREP {
     // MODULE: Run PreprocessIntervals
     //
     
-    prepro_ints = Channel.of(
-        GATK4_PREPROCESSINTERVALS (
-            [ meta_inp, capture_bed ],
-            fasta=ref_archive.fasta,
-            dict=ref_archive.dict,
-            fai=ref_archive.fai
-        )
-    )
+    //prepro_ints = Channel.of(
+
+    GATK4_PREPROCESSINTERVALS ( [ meta_inp, capture_bed ], fasta=ref_archive.fasta, dict=ref_archive.dict, fai=ref_archive.fai )
+    //)
 
     //
     // MODULE: Run IndexFeatureFile
