@@ -103,7 +103,7 @@ workflow CNVPREP {
     }
     .set { ref_archive }
 
-    ref_archive.fasta.view
+    ref_archive.fasta.view { "fasta $it" }
 
     //
     // MODULE: Run PreprocessIntervals
