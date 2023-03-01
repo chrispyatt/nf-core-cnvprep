@@ -92,7 +92,7 @@ workflow CNVPREP {
     // MODULE: Run Untar (on reference genome archive)
     //
 
-    ref_archive = Channel.of(UNTAR ( [ meta_inp, ref_genome ] ).untar)
+    //ref_archive = Channel.of(UNTAR ( [ meta_inp, ref_genome ] ).untar)
 
     Channel
     .of(UNTAR ( [ meta_inp, ref_genome ] ).untar)
