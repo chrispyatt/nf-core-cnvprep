@@ -92,7 +92,7 @@ workflow CNVPREP {
     // MODULE: Run Untar (on reference genome archive)
     //
 
-    ref_archive = UNTAR ( [ meta_inp, ref_genome ] ).untar
+    ref_archive = Channel.of(UNTAR ( [ meta_inp, ref_genome ] ).untar)
 
     //
     // MODULE: Run PreprocessIntervals
@@ -100,9 +100,9 @@ workflow CNVPREP {
     
     prepro_ints = GATK4_PREPROCESSINTERVALS (
         [ meta_inp, capture_bed ],
-        fasta="ref_archive/genome.fasta",
-        dict="ref_archive/genome.dict",
-        fai="ref_archive/genome.fa.fai"
+        fasta=ref_archive[0],
+        dict=ref_archive[1],
+        fai=ref_archive[2]]
         )
     
 
