@@ -102,7 +102,7 @@ workflow CNVPREP {
         [ meta_inp, capture_bed ],
         fasta=ref_archive[0],
         dict=ref_archive[1],
-        fai=ref_archive[2]]
+        fai=ref_archive[2]
         )
     
 
