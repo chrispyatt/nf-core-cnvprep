@@ -103,7 +103,6 @@ workflow CNVPREP {
     }
     .set { ref_archive }
 
-    ref_archive.fasta.view { "fasta $it" }
 
     //
     // MODULE: Run PreprocessIntervals
@@ -117,11 +116,11 @@ workflow CNVPREP {
     //
     // MODULE: Run IndexFeatureFile
     //
-    /*
+    
     GATK4_INDEXFEATUREFILE (
         [ meta_inp, map_bed ]
     )
-    */
+    
     /*
     GATK4_INDEXFEATUREFILE (
         feature_file=params.segdup
