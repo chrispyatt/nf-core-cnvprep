@@ -118,13 +118,13 @@ workflow CNVPREP {
     //
     // MODULE: Run IndexFeatureFile
     //
-    if ( map_bed ) {
+    if ( params.map ) {
     Channel
     .of( GATK4_INDEXFEATUREFILE ( [ meta_inp, map_bed ] ) )
     .set { map_idx }
     }
     
-    if (segdup_bed) {
+    if ( params.segdup ) {
     Channel
     .of( GATK4_INDEXFEATUREFILE ( [ meta_inp, segdup_bed ] ) )
     .set { segdup_idx }
