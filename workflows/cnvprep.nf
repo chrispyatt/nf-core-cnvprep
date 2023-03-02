@@ -121,25 +121,17 @@ workflow CNVPREP {
     //
     // MODULE: Run IndexFeatureFile
     //
-    if ( params.map ) {
+
+    to_be_indexed = Channel.of( map_bed, segdup_bed )
+
     Channel
     .of( GATK4_INDEXFEATUREFILE ( [ meta_inp, map_bed ] ) )
     .branch {
-        index: it.toString().endsWith('.idx')
+        map_idx: it.toString().endsWith('.idx')[0]
+        segdup_idx: it.toString().endsWith('.idx')[1]
     }
-    .set { map_idx }
-    }
-    else map_idx = null
-    
-    if ( params.segdup ) {
-    Channel
-    .of( GATK4_INDEXFEATUREFILE ( [ meta_inp, segdup_bed ] ) )
-    .branch {
-        index: it.toString().endsWith('.idx')
-    }
-    .set { segdup_idx }
-    }
-    else segdup_idx = null
+    .set { indexes }
+
 
     //
     // MODULE: Run AnnotateIntervals
@@ -151,9 +143,9 @@ workflow CNVPREP {
         dict=ref_archive.dict,
         fai=ref_archive.fai,
         mappable_regions=map_bed,
-        mappable_regions_tbi=map_idx.index,
+        mappable_regions_tbi=indexes.map_idx,
         segmental_duplication_regions=map_bed,
-        segmental_duplication_regions_tbi=segdup_idx.index
+        segmental_duplication_regions_tbi=indexes.segdup_idx
         )
     
 
