@@ -103,6 +103,7 @@ workflow CNVPREP {
     }
     .set { ref_archive }
 
+    print "\nTHIS IS REF_ARCHIVE:\n"
     ref_archive.fasta.view()
     ref_archive.dict.view()
     ref_archive.fai.view()
@@ -127,9 +128,9 @@ workflow CNVPREP {
 
     //to_be_indexed = Channel.of( map_bed, segdup_bed )
 
-    Channel
-    .of( GATK4_INDEXFEATUREFILE ( [ meta_inp, map_bed ] ) )
-    .set { indexes }
+    //Channel
+    //.of( GATK4_INDEXFEATUREFILE ( [ meta_inp, map_bed ] ) )
+    //.set { indexes }
 
 
     //.branch {
