@@ -110,38 +110,40 @@ workflow CNVPREP {
     
     //prepro_ints = Channel.of(
 
-    GATK4_PREPROCESSINTERVALS ( [ meta_inp, capture_bed ], fasta=ref_archive.fasta, dict=ref_archive.dict, fai=ref_archive.fai )
+    Channel
+    .of( GATK4_PREPROCESSINTERVALS ( [ meta_inp, capture_bed ], fasta=ref_archive.fasta, dict=ref_archive.dict, fai=ref_archive.fai ) )
+    .set { prepro_ints }
     //)
 
     //
     // MODULE: Run IndexFeatureFile
     //
     
-    GATK4_INDEXFEATUREFILE (
-        [ meta_inp, map_bed ]
-    )
+    Channel
+    .of( GATK4_INDEXFEATUREFILE ( [ meta_inp, map_bed ] ) )
+    .set { map_idx }
     
-    /*
-    GATK4_INDEXFEATUREFILE (
-        feature_file=params.segdup
-    )
-    */
+    
+    Channel
+    .of( GATK4_INDEXFEATUREFILE ( [ meta_inp, segdup_bed ] ) )
+    .set { segdup_idx }
+    
 
     //
     // MODULE: Run AnnotateIntervals
     //
-    /*
+    
     anno_ints = GATK4_ANNOTATEINTERVALS (
         [ meta_inp, prepro_ints.interval_list ],
-        fasta='genome.fa',
-        dict='genome.dict',
-        fai='genome.fa.fai',
+        fasta=ref_archive.fasta,
+        dict=ref_archive.dict,
+        fai=ref_archive.fai,
         mappable_regions=map_bed,
-        mappable_regions_tbi='map_bed.tbi',
+        mappable_regions_tbi=map_idx.index,
         segmental_duplication_regions=map_bed,
-        segmental_duplication_regions_tbi='map_bed.tbi' 
+        segmental_duplication_regions_tbi=segdup_idx.index
         )
-    */
+    
 
 
 }
