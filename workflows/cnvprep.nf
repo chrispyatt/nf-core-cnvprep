@@ -122,7 +122,7 @@ workflow CNVPREP {
     // MODULE: Run IndexFeatureFile
     //
 
-    to_be_indexed = Channel.of( map_bed, segdup_bed )
+    //to_be_indexed = Channel.of( map_bed, segdup_bed )
 
     Channel
     .of( GATK4_INDEXFEATUREFILE ( [ meta_inp, map_bed ] ) )
@@ -145,8 +145,8 @@ workflow CNVPREP {
         fai=ref_archive.fai,
         mappable_regions=map_bed,
         mappable_regions_tbi=indexes,
-        segmental_duplication_regions=map_bed,
-        segmental_duplication_regions_tbi=indexes
+        segmental_duplication_regions=null,
+        segmental_duplication_regions_tbi=null
         )
     
 
