@@ -144,9 +144,9 @@ workflow CNVPREP {
         dict=ref_archive.dict,
         fai=ref_archive.fai,
         mappable_regions=map_bed,
-        mappable_regions_tbi=indexes[0],
+        mappable_regions_tbi=indexes,
         segmental_duplication_regions=map_bed,
-        segmental_duplication_regions_tbi=indexes[1]
+        segmental_duplication_regions_tbi=indexes
         )
     
 
