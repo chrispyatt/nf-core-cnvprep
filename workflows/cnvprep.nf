@@ -126,12 +126,13 @@ workflow CNVPREP {
 
     Channel
     .of( GATK4_INDEXFEATUREFILE ( [ meta_inp, map_bed ] ) )
-    .branch {
-        map_idx: it.toString().endsWith('.idx')[0]
-        segdup_idx: it.toString().endsWith('.idx')[1]
-    }
     .set { indexes }
 
+
+    //.branch {
+    //    map_idx: it.toString().endsWith('.idx')[0]
+    //    segdup_idx: it.toString().endsWith('.idx')[1]
+    //}
 
     //
     // MODULE: Run AnnotateIntervals
@@ -143,9 +144,9 @@ workflow CNVPREP {
         dict=ref_archive.dict,
         fai=ref_archive.fai,
         mappable_regions=map_bed,
-        mappable_regions_tbi=indexes.map_idx,
+        mappable_regions_tbi=indexes[0],
         segmental_duplication_regions=map_bed,
-        segmental_duplication_regions_tbi=indexes.segdup_idx
+        segmental_duplication_regions_tbi=indexes[1]
         )
     
 
