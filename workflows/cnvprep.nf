@@ -129,6 +129,7 @@ workflow CNVPREP {
     }
     .set { map_idx }
     }
+    else map_idx = null
     
     if ( params.segdup ) {
     Channel
@@ -138,6 +139,7 @@ workflow CNVPREP {
     }
     .set { segdup_idx }
     }
+    else segdup_idx = null
 
     //
     // MODULE: Run AnnotateIntervals
