@@ -145,8 +145,8 @@ workflow CNVPREP {
         fai=ref_archive.fai,
         mappable_regions=map_bed,
         mappable_regions_tbi=indexes,
-        segmental_duplication_regions=null,
-        segmental_duplication_regions_tbi=null
+        segmental_duplication_regions='',
+        segmental_duplication_regions_tbi=''
         )
     
 
