@@ -112,6 +112,9 @@ workflow CNVPREP {
 
     Channel
     .of( GATK4_PREPROCESSINTERVALS ( [ meta_inp, capture_bed ], fasta=ref_archive.fasta, dict=ref_archive.dict, fai=ref_archive.fai ) )
+    .branch {
+        interval_list: it.toString().endsWith('.interval_list')
+    }
     .set { prepro_ints }
     //)
 
@@ -121,12 +124,18 @@ workflow CNVPREP {
     if ( params.map ) {
     Channel
     .of( GATK4_INDEXFEATUREFILE ( [ meta_inp, map_bed ] ) )
+    .branch {
+        index: it.toString().endsWith('.idx')
+    }
     .set { map_idx }
     }
     
     if ( params.segdup ) {
     Channel
     .of( GATK4_INDEXFEATUREFILE ( [ meta_inp, segdup_bed ] ) )
+    .branch {
+        index: it.toString().endsWith('.idx')
+    }
     .set { segdup_idx }
     }
 
