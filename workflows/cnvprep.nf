@@ -95,7 +95,7 @@ workflow CNVPREP {
     //ref_archive = Channel.of(UNTAR ( [ meta_inp, ref_genome ] ).untar)
 
     Channel
-    .of(UNTAR ( [ meta_inp, ref_genome ] ).untar)
+    .of(UNTAR ( [ meta_inp, ref_genome ] ).out.untar)
     .branch {
         fasta: it.toString().endsWith('.fa')
         dict: it.toString().endsWith('.dict')
@@ -103,6 +103,9 @@ workflow CNVPREP {
     }
     .set { ref_archive }
 
+    ref_archive.fasta.view()
+    ref_archive.dict.view()
+    ref_archive.fai.view()
 
     //
     // MODULE: Run PreprocessIntervals
@@ -111,7 +114,7 @@ workflow CNVPREP {
     //prepro_ints = Channel.of(
 
     Channel
-    .of( GATK4_PREPROCESSINTERVALS ( [ meta_inp, capture_bed ], fasta=ref_archive.fasta, dict=ref_archive.dict, fai=ref_archive.fai ) )
+    .of( GATK4_PREPROCESSINTERVALS ( [ meta_inp, capture_bed ], ref_archive.fasta, ref_archive.dict, ref_archive.fai ) )
     .branch {
         interval_list: it.toString().endsWith('.interval_list')
     }
