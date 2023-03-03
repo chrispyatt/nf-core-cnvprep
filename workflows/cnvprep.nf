@@ -105,7 +105,7 @@ workflow CNVPREP {
     .set { ref_archive }
     */
 
-    untar_out_ch = UNTAR([], ref_genome ).untar.map {it -> [ it[1] ] }
+    untar_out_ch = UNTAR([ , ref_genome ] ).untar.map {it -> [ it[1] ] }
     
 
     print "\nTHIS IS REF_ARCHIVE:\n"
