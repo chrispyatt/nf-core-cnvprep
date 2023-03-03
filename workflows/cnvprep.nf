@@ -94,7 +94,7 @@ workflow CNVPREP {
 
     //ref_archive = Channel.of(UNTAR ( [ meta_inp, ref_genome ] ).untar)
 
-    
+    /*
     Channel
     .of(UNTAR ( [ meta_inp, ref_genome ] ).untar)
     .branch { run ->
@@ -103,9 +103,13 @@ workflow CNVPREP {
         fai: run.toString().endsWith('.fai')
     }
     .set { ref_archive }
+    */
+
+    untar_out_ch = UNTAR([], ref_genome ).untar.map {it -> [ it[1] ] }
     
 
     print "\nTHIS IS REF_ARCHIVE:\n"
+    print untar_out_ch.view()
     //print ref_archive.fasta.view()
     //print "\n"
     //print ref_archive.dict.view()
@@ -121,6 +125,7 @@ workflow CNVPREP {
     
     //prepro_ints = Channel.of(
 
+    /*
     Channel
     .of( GATK4_PREPROCESSINTERVALS ( [ meta_inp, capture_bed ], ref_archive.fasta, ref_archive.dict, ref_archive.fai ) )
     .branch {
@@ -128,6 +133,7 @@ workflow CNVPREP {
     }
     .set { prepro_ints }
     //)
+    */
 
     //
     // MODULE: Run IndexFeatureFile
