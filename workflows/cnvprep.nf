@@ -112,8 +112,8 @@ workflow CNVPREP {
     //print "\n"
     //print ref_archive.fai.view()
     //print "\n"
-    print ref_archive.view()
-    print "\n"
+    //print ref_archive.view()
+    //print "\n"
 
     //
     // MODULE: Run PreprocessIntervals
