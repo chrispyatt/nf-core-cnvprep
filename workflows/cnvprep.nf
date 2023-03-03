@@ -92,8 +92,9 @@ workflow CNVPREP {
     // MODULE: Run Untar (on reference genome archive)
     //
 
-    //ref_archive = Channel.of(UNTAR ( [ meta_inp, ref_genome ] ).untar)
+    ref_archive = Channel.of(UNTAR ( [ meta_inp, ref_genome ] ).untar)
 
+    /*
     Channel
     .of(UNTAR ( [ meta_inp, ref_genome ] ).untar)
     .branch {
@@ -102,7 +103,8 @@ workflow CNVPREP {
         fai: it.toString().endsWith('.fai')
     }
     .set { ref_archive }
-
+    */
+    
     print "\nTHIS IS REF_ARCHIVE:\n"
     print ref_archive.fasta.view()
     print "\n"
