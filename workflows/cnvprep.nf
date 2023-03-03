@@ -97,7 +97,7 @@ workflow CNVPREP {
     
     Channel
     .of(UNTAR ( [ meta_inp, ref_genome ] ).untar)
-    .branch { meta, samplesheet, run ->
+    .branch { meta, run ->
         fasta: run.toString().endsWith('.fa')
         dict: run.toString().endsWith('.dict')
         fai: run.toString().endsWith('.fai')
