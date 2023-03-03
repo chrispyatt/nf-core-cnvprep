@@ -104,14 +104,14 @@ workflow CNVPREP {
     }
     .set { ref_archive }
     */
-    
+
     print "\nTHIS IS REF_ARCHIVE:\n"
-    print ref_archive.fasta.view()
-    print "\n"
-    print ref_archive.dict.view()
-    print "\n"
-    print ref_archive.fai.view()
-    print "\n"
+    //print ref_archive.fasta.view()
+    //print "\n"
+    //print ref_archive.dict.view()
+    //print "\n"
+    //print ref_archive.fai.view()
+    //print "\n"
     print ref_archive.view()
     print "\n"
 
