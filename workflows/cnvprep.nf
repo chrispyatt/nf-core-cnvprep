@@ -104,9 +104,12 @@ workflow CNVPREP {
     .set { ref_archive }
 
     print "\nTHIS IS REF_ARCHIVE:\n"
-    ref_archive.fasta.view()
-    ref_archive.dict.view()
-    ref_archive.fai.view()
+    print ref_archive.fasta.view()
+    print "\n"
+    print ref_archive.dict.view()
+    print "\n"
+    print ref_archive.fai.view()
+    print "\n"
 
     //
     // MODULE: Run PreprocessIntervals
