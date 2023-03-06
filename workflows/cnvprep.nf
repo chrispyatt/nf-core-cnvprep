@@ -116,9 +116,9 @@ workflow CNVPREP {
 
 
     print "\nTHIS IS REF_ARCHIVE:\n"
-    print untar_out_ch.view()
+    untar_out_ch.view() { $it }
 
-    print branched_ch.fasta.view()
+    branched_ch.fasta.view() { $it }
 
 
     //print ref_archive.fasta.view()
@@ -152,9 +152,9 @@ workflow CNVPREP {
 
     //to_be_indexed = Channel.of( map_bed, segdup_bed )
 
-    Channel
-    .of( GATK4_INDEXFEATUREFILE ( [ meta_inp, map_bed ] ) )
-    .set { indexes }
+    //Channel
+    //.of( GATK4_INDEXFEATUREFILE ( [ meta_inp, map_bed ] ) )
+    //.set { indexes }
 
 
     //.branch {
