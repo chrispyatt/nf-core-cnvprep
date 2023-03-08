@@ -11,7 +11,7 @@ process UNTAR {
     tuple val(meta), path(archive)
 
     output:
-    tuple val(meta), path("$prefix"), emit: untar
+    tuple val(meta), path("$prefix/*"), emit: untar
     path "versions.yml"             , emit: versions
 
     when:
