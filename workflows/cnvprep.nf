@@ -122,7 +122,7 @@ workflow CNVPREP {
     branched_ch.fasta.view() { "branch fasta: $it \n" }
 
 
-    //print ref_archive.fasta.view()
+    print ref_archive.fasta.view()
     //print "\n"
     //print ref_archive.dict.view()
     //print "\n"
