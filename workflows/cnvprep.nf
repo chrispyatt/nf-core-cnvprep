@@ -105,7 +105,7 @@ workflow CNVPREP {
     .set { ref_archive }
     */
 
-    untar_out_ch = UNTAR([ meta_inp, ref_genome ] ).untar.map {it -> [ it[1] ] }
+    untar_out_ch = UNTAR([ meta_inp, ref_genome ] ).untar.map {it ->  it[1]  }
     
     branched_ch = untar_out_ch.branch { it ->
         fasta: it.toString().endsWith('.fa')
