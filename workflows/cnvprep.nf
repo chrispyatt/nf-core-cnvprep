@@ -119,7 +119,7 @@ workflow CNVPREP {
     untar_out_ch.view() { "channel: $it \n" }
     //print untar_out_ch
     print "\nBRANCH FASTA:\n"
-    branched_ch.fasta.view() { "branch fasta: $it \n" }
+    print branched_ch.fasta.view() 
 
 
     print ref_archive.fasta.view()
