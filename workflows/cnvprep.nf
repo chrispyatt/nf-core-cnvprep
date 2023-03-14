@@ -110,7 +110,7 @@ workflow CNVPREP {
     untar_collected_ch = untar_out_ch.collect() 
     untar_collected_ch.view() { "collected: $it \n" }
 
-    branched_ch = untar_collected_ch.branch { 
+    branched_ch = untar_collected_ch.branch { it ->
         fasta: it.toString().endsWith('.fa')
         dict: it.toString().endsWith('.dict')
         fai: it.toString().endsWith('.fai')
