@@ -107,7 +107,10 @@ workflow CNVPREP {
 
     untar_out_ch = UNTAR([ meta_inp, ref_genome ] ).untar.map {it ->  it[1]  }
     
-    branched_ch = untar_out_ch.branch { 
+    untar_collected_ch = untar_out_ch.collect() 
+    untar_collected_ch.view() { "collected: $it \n" }
+
+    branched_ch = untar_collected_ch.branch { 
         fasta: it.toString().endsWith('.fa')
         dict: it.toString().endsWith('.dict')
         fai: it.toString().endsWith('.fai')
