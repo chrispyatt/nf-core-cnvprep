@@ -108,25 +108,32 @@ workflow CNVPREP {
     untar_out_ch = UNTAR([ meta_inp, ref_genome ] ).untar.map {it ->  it[1] =~ /\[[^\]]*\]/ }
     //untar_out_stripped = untar_out_ch =~ /\[[^\]]*\]/
     //ch2 = Channel.value( untar_out_ch )
+    fasta = untar_out_ch[0][1]
+    dict = untar_out_ch[0][2]
+    fai = untar_out_ch[0][3]
 
     
     untar_collected_ch = untar_out_ch.collect() 
     untar_collected_ch.view() { "collected: $it \n" }
 
+    /*
     branched_ch = untar_out_ch.branch { it ->
         fasta: it.toString().endsWith('.fa')
         dict: it.toString().endsWith('.dict')
         fai: it.toString().endsWith('.fai')
         other: it.toString().endsWith(']')
     }
-
+    */
 
 
     print "\nTHIS IS REF_ARCHIVE:\n"
     untar_out_ch.view() { "channel: $it \n" }
+    print fasta
+    print dict
+    print fai
     //branched_ch.view() { "branched: $it \n" }
-    branched_ch.fasta.view() { "fasta: $it \n" }
-    branched_ch.other.view() { "other: $it \n" }
+    //branched_ch.fasta.view() { "fasta: $it \n" }
+    //branched_ch.other.view() { "other: $it \n" }
     //print untar_out_ch
     //print "\nBRANCH FASTA:\n"
     //untar_out_ch.view() { "fasta: $it \n" }
