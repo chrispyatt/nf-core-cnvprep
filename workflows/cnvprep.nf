@@ -112,7 +112,7 @@ workflow CNVPREP {
     untar_collected_ch = untar_out_ch.collect() 
     untar_collected_ch.view() { "collected: $it \n" }
 
-    branched_ch = untar_out_ch.branch { it ->
+    branched_ch = untar_out_ch.branch { it.replaceAll(/[\[\]]+/,'') ->
         fasta: it.toString().endsWith('.fa')
         dict: it.toString().endsWith('.dict')
         fai: it.toString().endsWith('.fai')
