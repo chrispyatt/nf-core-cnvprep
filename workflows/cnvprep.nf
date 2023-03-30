@@ -112,7 +112,7 @@ workflow CNVPREP {
     untar_collected_ch = untar_out_ch.collect() 
     untar_collected_ch.view() { "collected: $it \n" }
 
-    branched_ch = Channel.of(untar_out_ch).branch { it ->
+    branched_ch = Channel.of('[/work/f3/9b039ae5c77943fb9a865072936662/test/genome.dict, /work/f3/9b039ae5c77943fb9a865072936662/test/genome.fa, /work/f3/9b039ae5c77943fb9a865072936662/test/genome.fa.fai]').branch { it ->
         fasta: it.toString().endsWith('.fa')
         dict: it.toString().endsWith('.dict')
         fai: it.toString().endsWith('.fai')
