@@ -109,7 +109,7 @@ workflow CNVPREP {
     contents = untar_out_ch =~ /\[[^\]]*\]/
     //untar_out_stripped = untar_out_ch =~ /\[[^\]]*\]/
     //ch2 = Channel.value( untar_out_ch ) =~ /\[[^\]]*\]/
-    print HERE: contents
+    print HERE: contents[0]
 
     
     untar_collected_ch = untar_out_ch.collect() 
