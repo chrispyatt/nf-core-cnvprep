@@ -105,11 +105,12 @@ workflow CNVPREP {
     .set { ref_archive }
     */
 
-    untar_out_ch = UNTAR([ meta_inp, ref_genome ] ).untar.map {it ->  it[1].toString() }
-    contents = untar_out_ch =~ /\[[^\]]*\]/
+    untar_out_ch = UNTAR([ meta_inp, ref_genome ] ).untar.map {it ->  it[1][1] }
+    //untar_out_ch = UNTAR([ meta_inp, ref_genome ] ).untar.map {it ->  it[1].toString() }
+    //contents = untar_out_ch =~ /\[[^\]]*\]/
     //untar_out_stripped = untar_out_ch =~ /\[[^\]]*\]/
     //ch2 = Channel.value( untar_out_ch ) =~ /\[[^\]]*\]/
-    print HERE: contents[0]
+    //print HERE: contents
 
     
     untar_collected_ch = untar_out_ch.collect() 
