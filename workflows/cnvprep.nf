@@ -125,7 +125,7 @@ workflow CNVPREP {
 
     
     branched_ch = untar_out_ch.branch { it ->
-        fasta: it[1]
+        fasta: it[1][1]
         dict: it[2]
         fai: it[3]
     }
