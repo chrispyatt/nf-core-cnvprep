@@ -105,10 +105,13 @@ workflow CNVPREP {
     .set { ref_archive }
     */
 
-    fasta_ch = UNTAR([ meta_inp, ref_genome ] ).untar.map {it ->  it[1][1] }
-    dict_ch = UNTAR([ meta_inp, ref_genome ] ).untar.map {it ->  it[1][2] }
-    fai_ch = UNTAR([ meta_inp, ref_genome ] ).untar.map {it ->  it[1][3] }
-    //untar_out_ch = UNTAR([ meta_inp, ref_genome ] ).untar.map {it ->  it[1].toString() }
+    //fasta_ch = UNTAR([ meta_inp, ref_genome ] ).untar.map {it ->  it[1][1] }
+    //dict_ch = UNTAR([ meta_inp, ref_genome ] ).untar.map {it ->  it[1][2] }
+    //fai_ch = UNTAR([ meta_inp, ref_genome ] ).untar.map {it ->  it[1][3] }
+    untar_out_ch = UNTAR([ meta_inp, ref_genome ] ).untar.map {it ->  it[1] }
+    fasta = untar_out_ch[1]
+    dict = untar_out_ch[2]
+    fai = untar_out_ch[3]
     //contents = untar_out_ch =~ /\[[^\]]*\]/
     //untar_out_stripped = untar_out_ch =~ /\[[^\]]*\]/
     //ch2 = Channel.value( untar_out_ch ) =~ /\[[^\]]*\]/
@@ -155,7 +158,7 @@ workflow CNVPREP {
 
     
     Channel
-    .of( GATK4_PREPROCESSINTERVALS ( [ meta_inp, capture_bed ], fasta_ch, dict_ch, fai_ch ) )
+    .of( GATK4_PREPROCESSINTERVALS ( [ meta_inp, capture_bed ], fasta, dict, fai ) )
     .branch {
         interval_list: it.toString().endsWith('.interval_list')
     }
