@@ -105,7 +105,9 @@ workflow CNVPREP {
     .set { ref_archive }
     */
 
-    untar_out_ch = UNTAR([ meta_inp, ref_genome ] ).untar.map {it ->  it[1][1] }
+    fasta_ch = UNTAR([ meta_inp, ref_genome ] ).untar.map {it ->  it[1][1] }
+    dict_ch = UNTAR([ meta_inp, ref_genome ] ).untar.map {it ->  it[1][2] }
+    fai_ch = UNTAR([ meta_inp, ref_genome ] ).untar.map {it ->  it[1][3] }
     //untar_out_ch = UNTAR([ meta_inp, ref_genome ] ).untar.map {it ->  it[1].toString() }
     //contents = untar_out_ch =~ /\[[^\]]*\]/
     //untar_out_stripped = untar_out_ch =~ /\[[^\]]*\]/
@@ -113,8 +115,8 @@ workflow CNVPREP {
     //print HERE: contents
 
     
-    untar_collected_ch = untar_out_ch.collect() 
-    untar_collected_ch.view() { "collected: $it \n" }
+    //untar_collected_ch = untar_out_ch.collect() 
+    //untar_collected_ch.view() { "collected: $it \n" }
 
     /*
     branched_ch = untar_out_ch.branch { it ->
@@ -126,8 +128,8 @@ workflow CNVPREP {
     */
 
 
-    print "\nTHIS IS REF_ARCHIVE:\n"
-    untar_out_ch.view() { "channel: $it \n" }
+    //print "\nTHIS IS REF_ARCHIVE:\n"
+    //untar_out_ch.view() { "channel: $it \n" }
     //branched_ch.view() { "branched: $it \n" }
     //branched_ch.fasta.view() { "fasta: $it \n" }
     //branched_ch.other.view() { "other: $it \n" }
@@ -151,15 +153,14 @@ workflow CNVPREP {
     
     //prepro_ints = Channel.of(
 
-    /*
+    
     Channel
-    .of( GATK4_PREPROCESSINTERVALS ( [ meta_inp, capture_bed ], ref_archive.fasta, ref_archive.dict, ref_archive.fai ) )
+    .of( GATK4_PREPROCESSINTERVALS ( [ meta_inp, capture_bed ], fasta_ch, dict_ch, fai_ch ) )
     .branch {
         interval_list: it.toString().endsWith('.interval_list')
     }
     .set { prepro_ints }
-    //)
-    */
+    
 
     //
     // MODULE: Run IndexFeatureFile
