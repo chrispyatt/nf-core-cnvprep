@@ -108,7 +108,7 @@ workflow CNVPREP {
     //fasta_ch = UNTAR([ meta_inp, ref_genome ] ).untar.map {it ->  it[1][1] }
     //dict_ch = UNTAR([ meta_inp, ref_genome ] ).untar.map {it ->  it[1][2] }
     //fai_ch = UNTAR([ meta_inp, ref_genome ] ).untar.map {it ->  it[1][3] }
-    untar_out_ch = UNTAR([ meta_inp, ref_genome ] ).untar.map {it ->  it[1][1], it[1][2] }
+    untar_out_ch = UNTAR([ meta_inp, ref_genome ] ).untar.map {it ->  it[1] }
     //fasta = untar_out_ch[1]
     //dict = untar_out_ch[2]
     //fai = untar_out_ch[3]
@@ -135,7 +135,6 @@ workflow CNVPREP {
     //print "\nTHIS IS REF_ARCHIVE:\n"
     untar_out_ch.view() { "channel: $it \n" }
     //branched_ch.view() { "branched: $it \n" }
-    print untar_out_ch
     //branched_ch.fasta.view() { "fasta: $it \n" }
     //branched_ch.other.view() { "other: $it \n" }
     //print untar_out_ch
