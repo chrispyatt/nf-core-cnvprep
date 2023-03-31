@@ -123,13 +123,13 @@ workflow CNVPREP {
     //untar_collected_ch = untar_out_ch.collect() 
     //untar_collected_ch.view() { "collected: $it \n" }
 
-    
+    /*
     branched_ch = untar_out_ch.branch { it ->
         fasta: it[1][1]
         dict: it[2]
         fai: it[3]
     }
-    
+    */
 
 
     //print "\nTHIS IS REF_ARCHIVE:\n"
