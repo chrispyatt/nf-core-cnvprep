@@ -108,7 +108,12 @@ workflow CNVPREP {
     //fasta_ch = UNTAR([ meta_inp, ref_genome ] ).untar.map {it ->  it[1][1] }
     //dict_ch = UNTAR([ meta_inp, ref_genome ] ).untar.map {it ->  it[1][2] }
     //fai_ch = UNTAR([ meta_inp, ref_genome ] ).untar.map {it ->  it[1][3] }
-    untar_out_ch = UNTAR([ meta_inp, ref_genome ] ).untar.map {it ->  it[1] }
+    //untar_out_ch = UNTAR([ meta_inp, ref_genome ] ).untar.map {it ->  it[1] }
+    untar_out_ch = UNTAR([ meta_inp, ref_genome ] ).untar.multiMap { it ->  
+        fasta: it[1][1]
+        dict: it[1][2]
+        fai: it[1][3] 
+        }
     //fasta = untar_out_ch[1]
     //dict = untar_out_ch[2]
     //fai = untar_out_ch[3]
