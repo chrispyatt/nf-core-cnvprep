@@ -85,7 +85,7 @@ workflow CNVPREP {
 
     //
     // SUBWORKFLOW: any local workflow code
-    
+    //
 
 
     //
@@ -103,9 +103,6 @@ workflow CNVPREP {
     // MODULE: Run PreprocessIntervals
     //
     
-    //prepro_ints = Channel.of(
-
-    
     Channel
     .of( GATK4_PREPROCESSINTERVALS ( [ meta_inp, capture_bed ], untar_out_ch.fasta, untar_out_ch.dict, untar_out_ch.fai ) )
     .branch {
@@ -113,6 +110,7 @@ workflow CNVPREP {
     }
     .set { prepro_ints }
     
+    prepro_ints.view() { "prepro: $i \n" }
 
     //
     // MODULE: Run IndexFeatureFile
@@ -123,6 +121,8 @@ workflow CNVPREP {
     Channel
     .of( GATK4_INDEXFEATUREFILE ( [ meta_inp, map_bed ] ) )
     .set { indexes }
+
+    indexes.view() { "indexes: $i \n" }
 
 
     //.branch {
@@ -145,6 +145,15 @@ workflow CNVPREP {
         segmental_duplication_regions_tbi=''
         )
     */
+
+    process publishOutputs {
+        publishDir: '/output'
+        output: path '*.interval_list'
+        script:
+        '''
+        printf 'Final output: ' prepro_ints.interval_list
+        '''
+    }
 
 
 }
