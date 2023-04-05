@@ -36,6 +36,7 @@ process GATK4_PREPROCESSINTERVALS {
         $exclude_command \\
         --reference $fasta \\
         --output ${prefix}.interval_list \\
+        --interval-merging-rule OVERLAPPING_ONLY \\
         $args
 
     cat <<-END_VERSIONS > versions.yml
