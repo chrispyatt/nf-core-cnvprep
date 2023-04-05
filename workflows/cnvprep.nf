@@ -152,11 +152,11 @@ workflow CNVPREP {
         output: path '*.interval_list'
         script:
         '''
-        printf 'Final output: ' prepro_ints.interval_list
+        printf 'Final output: ' $inp
         '''
     }
 
-    publishOutputs()
+    publishOutputs(prepro_ints.interval_list)
 
 
 }
