@@ -121,7 +121,7 @@ workflow CNVPREP {
     to_be_indexed_ch = Channel.of( map_bed )
 
     Channel
-    .of( GATK4_INDEXFEATUREFILE ( [ meta_inp, to_be_indexed_ch ] ) )
+    .of( GATK4_INDEXFEATUREFILE ( [ meta_inp, map_bed ] ) )
     .set { indexes }
 
 
