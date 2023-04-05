@@ -107,7 +107,7 @@ workflow CNVPREP {
 
     
     Channel
-    .of( GATK4_PREPROCESSINTERVALS ( [ meta_inp, capture_bed ], untar_out_ch.fa, untar_out_ch.dict, untar_out_ch.fai ) )
+    .of( GATK4_PREPROCESSINTERVALS ( [ meta_inp, capture_bed ], untar_out_ch.fasta, untar_out_ch.dict, untar_out_ch.fai ) )
     .branch {
         interval_list: it.toString().endsWith('.interval_list')
     }
@@ -118,7 +118,7 @@ workflow CNVPREP {
     // MODULE: Run IndexFeatureFile
     //
 
-    to_be_indexed_ch = Channel.of( map_bed, segdup_bed )
+    to_be_indexed_ch = Channel.of( map_bed )
 
     Channel
     .of( GATK4_INDEXFEATUREFILE ( [ meta_inp, to_be_indexed_ch ] ) )
