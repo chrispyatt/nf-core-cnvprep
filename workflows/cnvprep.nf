@@ -155,6 +155,8 @@ workflow CNVPREP {
         '''
     }
 
+    publishOutputs()
+
 
 }
 
