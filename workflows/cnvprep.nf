@@ -92,72 +92,12 @@ workflow CNVPREP {
     // MODULE: Run Untar (on reference genome archive)
     //
 
-    //ref_archive = Channel.of(UNTAR ( [ meta_inp, ref_genome ] ).untar)
-
-    /*
-    Channel
-    .of(UNTAR ( [ meta_inp, ref_genome ] ).untar)
-    .branch { run ->
-        fasta: run.toString().endsWith('.fa')
-        dict: run.toString().endsWith('.dict')
-        fai: run.toString().endsWith('.fai')
-    }
-    .set { ref_archive }
-    */
-
-    //fasta_ch = UNTAR([ meta_inp, ref_genome ] ).untar.map {it ->  it[1][1] }
-    //dict_ch = UNTAR([ meta_inp, ref_genome ] ).untar.map {it ->  it[1][2] }
-    //fai_ch = UNTAR([ meta_inp, ref_genome ] ).untar.map {it ->  it[1][3] }
-    //untar_out_ch = UNTAR([ meta_inp, ref_genome ] ).untar.map {it ->  it[1] }
     untar_out_ch = UNTAR([ meta_inp, ref_genome ] ).untar.multiMap { it ->  
         fasta: it[1][1]
         dict: it[1][0]
         fai: it[1][2] 
         }
-    //fasta = untar_out_ch[1]
-    //dict = untar_out_ch[2]
-    //fai = untar_out_ch[3]
-    //contents = untar_out_ch =~ /\[[^\]]*\]/
-    //untar_out_stripped = untar_out_ch =~ /\[[^\]]*\]/
-    //ch2 = Channel.value( untar_out_ch ) =~ /\[[^\]]*\]/
-    //print HERE: contents
-
-    //      [ value1, value2, value3 ]
-
     
-    //untar_collected_ch = untar_out_ch.collect() 
-    //untar_collected_ch.view() { "collected: $it \n" }
-
-    /*
-    branched_ch = untar_out_ch.branch { it ->
-        fasta: it[1][1]
-        dict: it[2]
-        fai: it[3]
-    }
-    */
-
-
-    //print "\nTHIS IS REF_ARCHIVE:\n"
-    //untar_out_ch.view() { "channel: $it \n" }
-    untar_out_ch.fasta.view() { "fasta: $it \n" }
-    untar_out_ch.dict.view() { "dict: $it \n" }
-    untar_out_ch.fai.view() { "fai: $it \n" }
-    //branched_ch.view() { "branched: $it \n" }
-    //branched_ch.fasta.view() { "fasta: $it \n" }
-    //branched_ch.other.view() { "other: $it \n" }
-    //print untar_out_ch
-    //print "\nBRANCH FASTA:\n"
-    //untar_out_ch.view() { "fasta: $it \n" }
-
-
-    //print ref_archive.fasta.view()
-    //print "\n"
-    //print ref_archive.dict.view()
-    //print "\n"
-    //print ref_archive.fai.view()
-    //print "\n"
-    //print ref_archive.view()
-    //print "\n"
 
     //
     // MODULE: Run PreprocessIntervals
@@ -165,24 +105,24 @@ workflow CNVPREP {
     
     //prepro_ints = Channel.of(
 
-    /*
+    
     Channel
-    .of( GATK4_PREPROCESSINTERVALS ( [ meta_inp, capture_bed ], untar_out_ch, dict, fai ) )
+    .of( GATK4_PREPROCESSINTERVALS ( [ meta_inp, capture_bed ], untar_out_ch.fa, untar_out_ch.dict, untar_out_ch.fai ) )
     .branch {
         interval_list: it.toString().endsWith('.interval_list')
     }
     .set { prepro_ints }
-    */
+    
 
     //
     // MODULE: Run IndexFeatureFile
     //
 
-    //to_be_indexed = Channel.of( map_bed, segdup_bed )
+    to_be_indexed_ch = Channel.of( map_bed, segdup_bed )
 
-    //Channel
-    //.of( GATK4_INDEXFEATUREFILE ( [ meta_inp, map_bed ] ) )
-    //.set { indexes }
+    Channel
+    .of( GATK4_INDEXFEATUREFILE ( [ meta_inp, to_be_indexed_ch ] ) )
+    .set { indexes }
 
 
     //.branch {
