@@ -147,7 +147,8 @@ workflow CNVPREP {
     */
 
     process publishOutputs {
-        publishDir: './output'
+        publishDir './output'
+        input: path inp
         output: path '*.interval_list'
         script:
         '''
