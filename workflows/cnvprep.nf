@@ -110,7 +110,7 @@ workflow CNVPREP {
     }
     .set { prepro_ints }
     
-    prepro_ints.view() { "prepro: $i \n" }
+    prepro_ints.view() { "prepro: $it \n" }
 
     //
     // MODULE: Run IndexFeatureFile
@@ -122,7 +122,7 @@ workflow CNVPREP {
     .of( GATK4_INDEXFEATUREFILE ( [ meta_inp, map_bed ] ) )
     .set { indexes }
 
-    indexes.view() { "indexes: $i \n" }
+    indexes.view() { "indexes: $it \n" }
 
 
     //.branch {
