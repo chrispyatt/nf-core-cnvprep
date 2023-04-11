@@ -156,7 +156,6 @@ workflow CNVPREP {
 
     process publishOutputs {
         publishDir './output'
-        output: path '*.interval_list'
         script:
         '''
         echo "this is some test output" > test_output.txt
