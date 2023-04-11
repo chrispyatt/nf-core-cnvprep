@@ -156,7 +156,6 @@ workflow CNVPREP {
 
     process publishOutputs {
         publishDir './output'
-        input: path inp
         output: path '*.interval_list'
         script:
         '''
@@ -165,7 +164,7 @@ workflow CNVPREP {
         '''
     }
 
-    //publishOutputs(prepro_ints.interval_list)
+    publishOutputs()
 
 
 }
