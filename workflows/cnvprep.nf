@@ -160,6 +160,7 @@ workflow CNVPREP {
         output: path '*.interval_list'
         script:
         '''
+        echo "this is some test output" > test_output.txt
         printf 'Final output: ' $inp
         '''
     }
