@@ -103,7 +103,7 @@ workflow CNVPREP {
     // MODULE: Run PreprocessIntervals
     //
     
-    prepro_ints = GATK4_PREPROCESSINTERVALS ( [ meta_inp, capture_bed ], untar_out_ch.fasta, untar_out_ch.dict, untar_out_ch.fai ).interval_list { it -> it[1] }
+    prepro_ints = GATK4_PREPROCESSINTERVALS ( [ meta_inp, capture_bed ], untar_out_ch.fasta, untar_out_ch.dict, untar_out_ch.fai ).interval_list //{ it -> it[1] }
 
     /*
     Channel
@@ -122,7 +122,7 @@ workflow CNVPREP {
 
     to_be_indexed_ch = Channel.of( map_bed )
 
-    indexes = GATK4_INDEXFEATUREFILE ( [ meta_inp, map_bed ] ).index { it -> it[1] }
+    indexes = GATK4_INDEXFEATUREFILE ( [ meta_inp, map_bed ] ).index //{ it -> it[1] }
 
     /*
     Channel
