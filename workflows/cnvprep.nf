@@ -158,7 +158,7 @@ workflow CNVPREP {
         publishDir './output'
         script:
         '''
-        echo "this is some test output" > test_output.txt
+        echo "this is some test output" > ./output/test_output.txt
         '''
     }
 
