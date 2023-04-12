@@ -101,6 +101,10 @@ workflow CNVPREP {
     fasta_ch = Channel.value(untar_out_ch.fasta)
     dict_ch = Channel.value(untar_out_ch.dict)
     fai_ch = Channel.value(untar_out_ch.fai)
+
+    fasta_ch.view() { "fasta: $it \n" }
+    dict_ch.view() { "dict: $it \n" }
+    fai_ch.view() { "fai: $it \n" }
     
 
     //
