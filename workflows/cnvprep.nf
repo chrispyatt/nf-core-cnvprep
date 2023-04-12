@@ -144,9 +144,9 @@ workflow CNVPREP {
     
     anno_ints = GATK4_ANNOTATEINTERVALS (
         [ meta_inp, prepro_ints ],
-        fasta=ref_archive.fasta,
-        dict=ref_archive.dict,
-        fai=ref_archive.fai,
+        fasta=untar_out_ch.fasta,
+        dict=untar_out_ch.dict,
+        fai=untar_out_ch.fai,
         mappable_regions=map_bed,
         mappable_regions_tbi=indexes,
         segmental_duplication_regions='',
