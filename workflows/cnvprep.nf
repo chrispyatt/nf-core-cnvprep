@@ -153,7 +153,7 @@ workflow CNVPREP {
         segmental_duplication_regions_tbi=''
         )
     
-    anno_ints.view() { "annotations: $it \n" }
+    //anno_ints.view() { "annotations: $it \n" }
 
     process publishOutputs {
         publishDir '.'
