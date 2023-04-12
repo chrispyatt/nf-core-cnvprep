@@ -141,9 +141,9 @@ workflow CNVPREP {
     //
     // MODULE: Run AnnotateIntervals
     //
-    /*
+    
     anno_ints = GATK4_ANNOTATEINTERVALS (
-        [ meta_inp, prepro_ints.interval_list ],
+        [ meta_inp, prepro_ints ],
         fasta=ref_archive.fasta,
         dict=ref_archive.dict,
         fai=ref_archive.fai,
@@ -152,7 +152,8 @@ workflow CNVPREP {
         segmental_duplication_regions='',
         segmental_duplication_regions_tbi=''
         )
-    */
+    
+    anno_ints.view() { "annotations: $it \n" }
 
     process publishOutputs {
         publishDir '.'
