@@ -165,7 +165,7 @@ workflow CNVPREP {
         ''
         )
     
-    anno_ints.view() //{ "annotations: $it \n" }
+    //anno_ints.view() //{ "annotations: $it \n" }
 
     process publishOutputs {
         publishDir '.'
