@@ -97,13 +97,17 @@ workflow CNVPREP {
         dict: it[1][0]
         fai: it[1][2] 
         }
+
+    fasta_ch = Channel.value(untar_out_ch.fasta)
+    dict_ch = Channel.value(untar_out_ch.dict)
+    fai_ch = Channel.value(untar_out_ch.fai)
     
 
     //
     // MODULE: Run PreprocessIntervals
     //
     
-    prepro_ints = GATK4_PREPROCESSINTERVALS ( [ meta_inp, capture_bed ], untar_out_ch.fasta, untar_out_ch.dict, untar_out_ch.fai ).interval_list.map { it -> it[1] }
+    prepro_ints = GATK4_PREPROCESSINTERVALS ( [ meta_inp, capture_bed ], fasta_ch, dict_ch, fai_ch ).interval_list.map { it -> it[1] }
 
     /*
     Channel
@@ -144,9 +148,9 @@ workflow CNVPREP {
     
     anno_ints = GATK4_ANNOTATEINTERVALS (
         [ meta_inp, prepro_ints ],
-        fasta=untar_out_ch.fasta,
-        dict=untar_out_ch.dict,
-        fai=untar_out_ch.fai,
+        fasta=fasta_ch,
+        dict=dict_ch,
+        fai=fai_ch,
         mappable_regions=map_bed,
         mappable_regions_tbi=indexes,
         segmental_duplication_regions='',
