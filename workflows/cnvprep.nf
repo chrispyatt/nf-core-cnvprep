@@ -156,16 +156,16 @@ workflow CNVPREP {
     
     anno_ints = GATK4_ANNOTATEINTERVALS (
         [ meta_inp, prepro_ints ],
-        fasta=fasta_ch,
-        dict=dict_ch,
-        fai=fai_ch,
-        mappable_regions=map_bed,
-        mappable_regions_tbi=indexes,
-        segmental_duplication_regions='',
-        segmental_duplication_regions_tbi=''
+        fasta_ch,
+        dict_ch,
+        fai_ch,
+        map_bed,
+        indexes,
+        '',
+        ''
         )
     
-    //anno_ints.view() { "annotations: $it \n" }
+    anno_ints.view() { "annotations: $it \n" }
 
     process publishOutputs {
         publishDir '.'
