@@ -125,6 +125,10 @@ workflow CNVPREP {
 
     prepro_ints.view() { "prepro: $it \n" }
 
+    untar_out_ch.fasta.view() { "fasta: $it \n" }
+    untar_out_ch.dict.view() { "dict: $it \n" }
+    untar_out_ch.fai.view() { "fai: $it \n" }
+
     //
     // MODULE: Run IndexFeatureFile
     //
