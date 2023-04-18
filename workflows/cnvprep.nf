@@ -112,7 +112,11 @@ workflow CNVPREP {
     // MODULE: Run PreprocessIntervals
     //
     
-    prepro_ints = GATK4_PREPROCESSINTERVALS ( [ meta_inp, capture_bed ], fasta_ch, dict_ch, fai_ch ).interval_list.map { it -> it[1] }
+    prepro_ints = GATK4_PREPROCESSINTERVALS ( [ meta_inp, capture_bed ], fasta_ch, dict_ch, fai_ch ).interval_list.multiMap { it -> interval: it[1] }
+
+    interval_ch = prepro_ints.interval
+
+    interval_ch.view() { "interval_ch: $it \n" }
 
     /*
     Channel
