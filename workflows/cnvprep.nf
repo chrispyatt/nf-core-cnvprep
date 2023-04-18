@@ -25,7 +25,7 @@ if (params.segdup) { segdup_bed = file(params.segdup) }
 // Make Groovy map for tuples (may need to change later)
 meta_inp = [ id:'test', single_end:false ]
 
-print "\nINPUTS = $ref_genome, $capture_bed, $map_bed\n"
+print "\nINPUTS = $ref_genome, $capture_bed, $map_bed, $segdup_bed\n"
 
 
 
