@@ -99,9 +99,9 @@ workflow CNVPREP {
         }
 
     
-    fasta_ch = untar_out_ch.fasta.first()
-    dict_ch = untar_out_ch.dict.first()
-    fai_ch = untar_out_ch.fai.first()
+    fasta_ch = untar_out_ch.fasta
+    dict_ch = untar_out_ch.dict
+    fai_ch = untar_out_ch.fai
 
     fasta_ch.view() { "fasta: $it \n" }
     dict_ch.view() { "dict: $it \n" }
