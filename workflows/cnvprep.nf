@@ -158,11 +158,9 @@ workflow CNVPREP {
     //
     // MODULE: Run AnnotateIntervals
     //
-
-    int_ch = Channel.of("@HD	VN:1.6\n    @SQ	SN:1	LN:249250621	UR:file://hs37d5.fa	M5:1b22b98cdeb4a9304cb5d48026a85128\n    @SQ	SN:GL000207.1	LN:4262	UR:file://hs37d5.fa	M5:f3814841f1939d3ca19072d9e89f3fd7\n    @SQ	SN:hs37d5	LN:35477943	UR:file://hs37d5.fa	M5:5b6a4b3a81a2d3c134b7d14bf6ad39f1\n    1	10001	11000	+	.\n    1	11001	12000	+	.\n    1	12001	13000	+	.\n    1	13001	14000	+	.")
     
     anno_ints = GATK4_ANNOTATEINTERVALS (
-        [ meta_inp, int_ch ],
+        [ meta_inp, segdup_bed ],
         fasta_ch,
         dict_ch,
         fai_ch,
