@@ -165,9 +165,7 @@ workflow CNVPREP {
         dict_ch,
         fai_ch,
         map_bed,
-        indexes,
-        '',
-        ''
+        indexes
         )
     
     //anno_ints.view() //{ "annotations: $it \n" }

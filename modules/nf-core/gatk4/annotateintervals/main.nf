@@ -14,8 +14,8 @@ process GATK4_ANNOTATEINTERVALS {
     path(dict)
     path(mappable_regions)
     path(mappable_regions_tbi)
-    path(segmental_duplication_regions)
-    path(segmental_duplication_regions_tbi)
+    //path(segmental_duplication_regions)
+    //path(segmental_duplication_regions_tbi)
 
     output:
     tuple val(meta), path("*.tsv"), emit: annotated_intervals
@@ -30,7 +30,7 @@ process GATK4_ANNOTATEINTERVALS {
 
     def inputs = intervals.collect(){ "--intervals ${it}" }.join(" ")
     def mappability_track = mappable_regions ? "--mappability-track ${mappable_regions}" : ""
-    def segmental_duplication_tracks = segmental_duplication_regions ? "--segmental-duplication-track ${segmental_duplication_regions}" : ""
+    //def segmental_duplication_tracks = segmental_duplication_regions ? "--segmental-duplication-track ${segmental_duplication_regions}" : ""
 
     def avail_mem = 3
     if (!task.memory) {
@@ -45,7 +45,6 @@ process GATK4_ANNOTATEINTERVALS {
         --reference ${fasta} \\
         --output ${prefix}.tsv \\
         ${mappability_track} \\
-        ${segmental_duplication_tracks} \\
         --tmp-dir . \\
         ${args}
 
