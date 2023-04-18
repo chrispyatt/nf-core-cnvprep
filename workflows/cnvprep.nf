@@ -98,7 +98,7 @@ workflow CNVPREP {
         fai: it[1][2] 
         }
 
-    /*
+    
     fasta_ch = untar_out_ch.fasta.first()
     dict_ch = untar_out_ch.dict.first()
     fai_ch = untar_out_ch.fai.first()
@@ -106,13 +106,13 @@ workflow CNVPREP {
     fasta_ch.view() { "fasta: $it \n" }
     dict_ch.view() { "dict: $it \n" }
     fai_ch.view() { "fai: $it \n" }
-    */
+    
 
     //
     // MODULE: Run PreprocessIntervals
     //
     
-    prepro_ints = GATK4_PREPROCESSINTERVALS ( [ meta_inp, capture_bed ], untar_out_ch.fasta, untar_out_ch.dict, untar_out_ch.fai ).interval_list.map { it -> it[1] }
+    prepro_ints = GATK4_PREPROCESSINTERVALS ( [ meta_inp, capture_bed ], fasta_ch, dict_ch, fai_ch ).interval_list.map { it -> it[1] }
 
     /*
     Channel
@@ -154,7 +154,7 @@ workflow CNVPREP {
     //
     // MODULE: Run AnnotateIntervals
     //
-    /*
+    
     fasta_ch.view() { "fasta: $it \n" }
     dict_ch.view() { "dict: $it \n" }
     fai_ch.view() { "fai: $it \n" }
@@ -169,7 +169,7 @@ workflow CNVPREP {
         '',
         ''
         )
-    */
+    
     //anno_ints.view() //{ "annotations: $it \n" }
 
     process publishOutputs {
