@@ -154,7 +154,7 @@ workflow CNVPREP {
     //
     // MODULE: Run AnnotateIntervals
     //
-    
+    /*
     fasta_ch.view() { "fasta: $it \n" }
     dict_ch.view() { "dict: $it \n" }
     fai_ch.view() { "fai: $it \n" }
@@ -169,7 +169,7 @@ workflow CNVPREP {
         '',
         ''
         )
-    
+    */
     //anno_ints.view() //{ "annotations: $it \n" }
 
     process publishOutputs {
