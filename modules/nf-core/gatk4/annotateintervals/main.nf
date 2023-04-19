@@ -46,6 +46,7 @@ process GATK4_ANNOTATEINTERVALS {
         --output ${prefix}.tsv \\
         ${mappability_track} \\
         --tmp-dir . \\
+        --interval-merging-rule OVERLAPPING_ONLY \\
         ${args}
 
     cat <<-END_VERSIONS > versions.yml
