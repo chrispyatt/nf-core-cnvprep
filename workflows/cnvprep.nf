@@ -160,7 +160,7 @@ workflow CNVPREP {
     //
     
     anno_ints = GATK4_ANNOTATEINTERVALS (
-        [ meta_inp, interval_ch ],
+        [ meta_inp, segdup_bed ],
         fasta_ch,
         dict_ch,
         fai_ch,
