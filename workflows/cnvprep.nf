@@ -103,11 +103,6 @@ workflow CNVPREP {
     dict_ch = untar_out_ch.dict
     fai_ch = untar_out_ch.fai
 
-    fasta_ch.view() { "fasta: $it \n" }
-    dict_ch.view() { "dict: $it \n" }
-    fai_ch.view() { "fai: $it \n" }
-    
-
     //
     // MODULE: Run PreprocessIntervals
     //
@@ -116,23 +111,6 @@ workflow CNVPREP {
 
     interval_ch = prepro_ints.interval
 
-    interval_ch.view() { "interval_ch: $it \n" }
-
-    /*
-    Channel
-    .of( GATK4_PREPROCESSINTERVALS ( [ meta_inp, capture_bed ], untar_out_ch.fasta, untar_out_ch.dict, untar_out_ch.fai ) )
-    .branch {
-        interval_list: it.toString().endsWith('.interval_list')
-    }
-    .set { prepro_ints }
-    */
-
-    prepro_ints.view() { "prepro: $it \n" }
-
-    untar_out_ch.fasta.view() { "fasta: $it \n" }
-    untar_out_ch.dict.view() { "dict: $it \n" }
-    untar_out_ch.fai.view() { "fai: $it \n" }
-
     //
     // MODULE: Run IndexFeatureFile
     //
@@ -140,20 +118,6 @@ workflow CNVPREP {
     to_be_indexed_ch = Channel.of( map_bed )
 
     indexes = GATK4_INDEXFEATUREFILE ( [ meta_inp, map_bed ] ).index.map { it -> it[1] }
-
-    /*
-    Channel
-    .of( GATK4_INDEXFEATUREFILE ( [ meta_inp, map_bed ] ) )
-    .set { indexes }
-    */
-
-    indexes.view() { "indexes: $it \n" }
-
-
-    //.branch {
-    //    map_idx: it.toString().endsWith('.idx')[0]
-    //    segdup_idx: it.toString().endsWith('.idx')[1]
-    //}
 
     //
     // MODULE: Run AnnotateIntervals
@@ -168,18 +132,7 @@ workflow CNVPREP {
         indexes
         )
     
-    //anno_ints.view() //{ "annotations: $it \n" }
-
-    process publishOutputs {
-        publishDir '.'
-        script:
-        '''
-        echo "this is some test output" > ./test_output.txt
-        '''
-    }
-
-    //publishOutputs()
-
+    anno_ints.view() //{ "annotations: $it \n" }
 
 }
 
