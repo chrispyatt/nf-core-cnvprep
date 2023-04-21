@@ -130,9 +130,9 @@ workflow CNVPREP {
         fai_ch,
         map_bed,
         indexes
-        )
+        ).annotated_intervals
     
-    anno_ints.view() //{ "annotations: $it \n" }
+    anno_ints.view() { "annotations: $it \n" }
 
 }
 
