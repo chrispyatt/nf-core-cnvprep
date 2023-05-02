@@ -116,8 +116,8 @@ workflow CNVPREP {
         fai_ch
         )
         
-    prepro_ints = GATK4_PREPROCESSINTERVALS.out.interval_list.multiMap { it -> interval: it[1] }.set { interval_ch }
-
+    prepro_ints = GATK4_PREPROCESSINTERVALS.out.interval_list.multiMap { it -> interval: it[1] }
+    
     interval_ch = prepro_ints.interval
 
     //
