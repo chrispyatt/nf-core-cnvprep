@@ -92,11 +92,12 @@ workflow CNVPREP {
     // MODULE: Run Untar (on reference genome archive)
     //
 
-    untar_out_ch = UNTAR([ meta_inp, ref_genome ] ).untar.multiMap { it ->  
+    UNTAR([ meta_inp, ref_genome ] ).untar.multiMap { it ->  
         fasta: it[1][1]
         dict: it[1][0]
         fai: it[1][2] 
         }
+        .set { untar_out_ch }
 
     
     fasta_ch = untar_out_ch.fasta
@@ -107,9 +108,9 @@ workflow CNVPREP {
     // MODULE: Run PreprocessIntervals
     //
     
-    prepro_ints = GATK4_PREPROCESSINTERVALS ( [ meta_inp, capture_bed ], fasta_ch, dict_ch, fai_ch ).interval_list.multiMap { it -> interval: it[1] }
+    GATK4_PREPROCESSINTERVALS ( [ meta_inp, capture_bed ], fasta_ch, dict_ch, fai_ch ).interval_list.multiMap { it -> interval: it[1] }.set { interval_ch }
 
-    interval_ch = prepro_ints.interval
+    //interval_ch = prepro_ints.interval
 
     //
     // MODULE: Run IndexFeatureFile
@@ -117,20 +118,21 @@ workflow CNVPREP {
 
     to_be_indexed_ch = Channel.of( map_bed )
 
-    indexes = GATK4_INDEXFEATUREFILE ( [ meta_inp, map_bed ] ).index.map { it -> it[1] }
+    GATK4_INDEXFEATUREFILE ( [ meta_inp, map_bed ] ).index.map { it -> it[1] }.set { indexes }
 
     //
     // MODULE: Run AnnotateIntervals
     //
     
-    anno_ints = GATK4_ANNOTATEINTERVALS (
-        [ meta_inp, segdup_bed ],
+    GATK4_ANNOTATEINTERVALS (
+        [ meta_inp, interval_ch ],
         fasta_ch,
         dict_ch,
         fai_ch,
         map_bed,
         indexes
         ).annotated_intervals
+        .set { anno_ints }
     
     anno_ints.view() { "annotations: $it \n" }
 
