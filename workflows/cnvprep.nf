@@ -120,10 +120,9 @@ workflow CNVPREP {
         fai_ch
         )
         
-    interval_ch = GATK4_PREPROCESSINTERVALS.out.interval_list.map { it -> it[1] }
+    //interval_ch = GATK4_PREPROCESSINTERVALS.out.interval_list.map { it -> it[1] }
 
     interval_ch.view() { "interval: $it \n" }
-    //interval_ch = prepro_ints.interval
 
     //
     // MODULE: Run IndexFeatureFile
