@@ -122,7 +122,7 @@ workflow CNVPREP {
         
     //interval_ch = GATK4_PREPROCESSINTERVALS.out.interval_list.map { it -> it[1] }
 
-    interval_ch.view() { "interval: $it \n" }
+    //interval_ch.view() { "interval: $it \n" }
 
     //
     // MODULE: Run IndexFeatureFile
