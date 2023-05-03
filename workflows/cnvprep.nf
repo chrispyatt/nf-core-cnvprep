@@ -105,6 +105,10 @@ workflow CNVPREP {
     dict_ch = untar_out_ch.dict
     fai_ch = untar_out_ch.fai
 
+    fasta_ch.view() { "fasta: $it \n" }
+    fai_ch.view() { "fai: $it \n" }
+    dict_ch.view() { "dict: $it \n" }
+
     //
     // MODULE: Run PreprocessIntervals
     //
@@ -118,6 +122,7 @@ workflow CNVPREP {
         
     interval_ch = GATK4_PREPROCESSINTERVALS.out.interval_list.map { it -> it[1] }
 
+    interval_ch.view() { "interval: $it \n" }
     //interval_ch = prepro_ints.interval
 
     //
@@ -128,12 +133,14 @@ workflow CNVPREP {
     
     index_ch = GATK4_INDEXFEATUREFILE.out.index.map { it -> it[1] }
 
+    index_ch.view() { "index: $it \n" }
+
     //
     // MODULE: Run AnnotateIntervals
     //
     
     GATK4_ANNOTATEINTERVALS (
-        [ meta_inp, interval_ch ],
+        [ meta_inp, segdup_bed ],
         fasta_ch,
         dict_ch,
         fai_ch,
