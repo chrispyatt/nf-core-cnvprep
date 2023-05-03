@@ -140,7 +140,7 @@ workflow CNVPREP {
     //
     
     GATK4_ANNOTATEINTERVALS (
-        [ GATK4_PREPROCESSINTERVALS.out.interval_list ],
+        GATK4_PREPROCESSINTERVALS.out.interval_list,
         fasta_ch,
         dict_ch,
         fai_ch,
