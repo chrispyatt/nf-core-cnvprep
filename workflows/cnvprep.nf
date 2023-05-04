@@ -30,7 +30,11 @@ meta_inp = [ id:"$id", single_end:false ]
 
 print "\nINPUTS = $ref_genome, $capture_bed, $map_bed, $segdup_bed\n"
 
+sed -i 's/^chr//' capture_bed
+sort -k1V -k2n -k3n capture_bed > sorted_cap_bed
 
+sed -i 's/^chr//' map_bed
+sort -k1V -k2n -k3n map_bed > sorted_map_bed
 
 //print ( ref_genome, capture_bed, map_bed )
 
@@ -97,9 +101,9 @@ workflow CNVPREP {
         """
     }
 
-    ch_sorted = sort_bed(map_bed)
+    //ch_sorted = sort_bed(map_bed)
 
-    ch_sorted.view() {"sorted: $it \n"}
+    //ch_sorted.view() {"sorted: $it \n"}
 
 
     //
@@ -133,7 +137,7 @@ workflow CNVPREP {
     //
     
     GATK4_PREPROCESSINTERVALS (
-        [ meta_inp, capture_bed ],
+        [ meta_inp, sorted_cap_bed ],
         fasta_ch,
         dict_ch,
         fai_ch
@@ -147,7 +151,7 @@ workflow CNVPREP {
     // MODULE: Run IndexFeatureFile
     //
 
-    GATK4_INDEXFEATUREFILE ( [ meta_inp, map_bed ] )
+    GATK4_INDEXFEATUREFILE ( [ meta_inp, sorted_map_bed ] )
     
     index_ch = GATK4_INDEXFEATUREFILE.out.index.map { it -> it[1] }
 
@@ -162,7 +166,7 @@ workflow CNVPREP {
         fasta_ch,
         dict_ch,
         fai_ch,
-        map_bed,
+        sorted_map_bed,
         index_ch
         )
         
