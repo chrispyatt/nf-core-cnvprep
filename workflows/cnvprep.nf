@@ -85,6 +85,22 @@ workflow CNVPREP {
 
     ch_versions = Channel.empty()
 
+    process sort_bed {
+        input:
+            path bedfile
+        output:
+            path sorted_bed
+        script:
+        """
+        sed -i 's/^chr//' bedfile
+        sort -k1V -k2n -k3n bedfile > sorted_bed
+        """
+    }
+
+    ch_sorted = sort_bed(map_bed)
+
+    ch_sorted.view() {"sorted: $it \n"}
+
 
     //
     // SUBWORKFLOW: any local workflow code
