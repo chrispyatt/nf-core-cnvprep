@@ -130,21 +130,18 @@ workflow CNVPREP {
     //
     
     GATK4_PREPROCESSINTERVALS (
-        [ meta_inp, sorted_cap_bed ],
+        [ meta_inp, capture_bed ],
         fasta_ch,
         dict_ch,
         fai_ch
         )
         
-    //interval_ch = GATK4_PREPROCESSINTERVALS.out.interval_list.map { it -> it[1] }
-
-    //interval_ch.view() { "interval: $it \n" }
 
     //
     // MODULE: Run IndexFeatureFile
     //
 
-    GATK4_INDEXFEATUREFILE ( [ meta_inp, sorted_map_bed ] )
+    GATK4_INDEXFEATUREFILE ( [ meta_inp, map_bed ] )
     
     index_ch = GATK4_INDEXFEATUREFILE.out.index.map { it -> it[1] }
 
@@ -159,7 +156,7 @@ workflow CNVPREP {
         fasta_ch,
         dict_ch,
         fai_ch,
-        sorted_map_bed,
+        map_bed,
         index_ch
         )
         
