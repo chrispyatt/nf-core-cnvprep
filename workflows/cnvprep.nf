@@ -90,7 +90,7 @@ workflow CNVPREP {
         script:
         """
         sed -i 's/^chr//' $bedfile
-        sort -k1V -k2n -k3n $bedfile > $sorted_bed
+        sort -k1V -k2n -k3n $bedfile > sorted_bed
         """
     }
 
