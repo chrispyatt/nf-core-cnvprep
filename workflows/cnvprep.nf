@@ -30,13 +30,6 @@ meta_inp = [ id:"$id", single_end:false ]
 
 print "\nINPUTS = $ref_genome, $capture_bed, $map_bed, $segdup_bed\n"
 
-sed -i 's/^chr//' capture_bed
-sort -k1V -k2n -k3n capture_bed > sorted_cap_bed
-
-sed -i 's/^chr//' map_bed
-sort -k1V -k2n -k3n map_bed > sorted_map_bed
-
-//print ( ref_genome, capture_bed, map_bed )
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -101,9 +94,9 @@ workflow CNVPREP {
         """
     }
 
-    //ch_sorted = sort_bed(map_bed)
+    ch_sorted = sort_bed(map_bed)
 
-    //ch_sorted.view() {"sorted: $it \n"}
+    ch_sorted.view() {"sorted: $it \n"}
 
 
     //
