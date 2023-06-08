@@ -28,7 +28,7 @@ if (params.segdup) { segdup_bed = file(params.segdup) }
 id = capture_bed.simpleName
 meta_inp = [ id:"$id", single_end:false ]
 
-print "\nINPUTS = $ref_genome, $capture_bed, $map_bed, $segdup_bed\n"
+print "\nINPUTS = $ref_genome, $capture_bed, $map_bed\n"
 
 
 /*
