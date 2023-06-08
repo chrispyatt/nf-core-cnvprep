@@ -82,13 +82,13 @@ workflow CNVPREP {
 
     ch_versions = Channel.empty()
 
-    process sort_beds {
+    process SORT_BEDS {
         input:
             path bedfile
             path other_bedfile
         output:
-            path sorted_bed
-            path other_sorted_bed
+            path sorted_bed, emit: cap_bed
+            path other_sorted_bed, emit: map_bed
         script:
         """
         sed -i 's/^chr//' $bedfile
@@ -98,13 +98,10 @@ workflow CNVPREP {
         """
     }
 
-    ch_sorted = sort_beds(capture_bed, map_bed).multiMap { it ->
-        capture: it[0]
-        map: it[1]
-    }
+    SORT_BEDS(capture_bed, map_bed)
 
-    ch_sorted.capture.view() {"sorted capture: $it \n"}
-    ch_sorted.map.view() {"sorted map: $it \n"}
+    SORT_BEDS.out.cap_bed.view() {"sorted capture: $it \n"}
+    SORT_BEDS.out.map_bed.view() {"sorted map: $it \n"}
 
 
 
